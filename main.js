@@ -287,10 +287,7 @@ function setupEventListeners() {
   });
 
   // Listener para el cambio de Tipo IVA para calcular cuota
-  const tipoIVASelect = document.getElementById('tipoIVA');
-  const totalNetoInput = document.getElementById('totalNeto');
-  tipoIVASelect.addEventListener('change', calcularIVA);
-  totalNetoInput.addEventListener('input', calcularIVA);
+  configurarLogicaIVA();
   
   // Listener para el botón Añadir Detalle
   const addDetailBtn = document.getElementById('addDetailButton');
@@ -390,6 +387,23 @@ function handleSaveAndNew() {
     } else {
         document.body.classList.remove('saving');
     }
+}
+
+/**
+ * Configura los listeners y la lógica para el cálculo de IVA y el modo manual.
+ * SE LLAMA DENTRO DE setupEventListeners
+ */
+function configurarLogicaIVA() {
+  const tipoIVASelect = document.getElementById('tipoIVA');
+  const totalNetoInput = document.getElementById('totalNeto');
+  
+  // Asegurarse de que los elementos existen antes de añadir listeners
+  if (tipoIVASelect) {
+    tipoIVASelect.addEventListener('change', toggleEdicionManualFormulario);
+  }
+  if (totalNetoInput) {
+    totalNetoInput.addEventListener('input', calcularValoresIVAFormulario);
+  }
 }
 
 function calcularIVA() {
